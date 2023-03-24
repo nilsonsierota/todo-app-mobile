@@ -1,16 +1,27 @@
-import React from "react";
+import React from 'react';
 
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
-import { Theme } from "../../themes";
+import { Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { Theme } from '../../themes';
 
 type Props = {
-  label: string;
+  variant?: 'primary' | 'light';
+  label?: string;
+  icon?: any;
 };
 
-export function Button({ label }: Props) {
+export function Button({ variant = 'primary', label, icon }: Props) {
+  let touchableOpacityStyle = { backgroundColor: Theme.colors.primary };
+  let textStyle = { color: 'white' };
+
+  if (variant === 'light') {
+    touchableOpacityStyle = { backgroundColor: 'white' };
+    textStyle = { color: Theme.colors.primary };
+  }
+
   return (
-    <TouchableOpacity style={styles.button}>
-      <Text style={styles.text}>{label}</Text>
+    <TouchableOpacity style={[styles.button, touchableOpacityStyle]}>
+      {!!label && <Text style={[styles.text, textStyle]}>{label}</Text>}
+      {!!icon && <Image source={icon} />}
     </TouchableOpacity>
   );
 }
@@ -20,14 +31,12 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     paddingVertical: 10,
     paddingHorizontal: 20,
-    backgroundColor: Theme.colors.primary,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   text: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
     fontSize: 20,
-    textTransform: "uppercase",
-    color: "white",
+    textTransform: 'uppercase',
   },
 });
