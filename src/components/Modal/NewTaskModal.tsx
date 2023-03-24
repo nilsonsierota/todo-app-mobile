@@ -7,11 +7,11 @@ import {
   Image,
   TouchableOpacity,
   TextInput,
-} from "react-native";
-import { Theme } from "../../themes";
-import { Button } from "../Buttons";
+} from 'react-native';
+import { Theme } from '../../themes';
+import { Button } from '../Buttons';
 
-const closeImage = require("../../../assets/close.png");
+const closeImage = require('../../../assets/close.png');
 
 type Props = {
   isVisible: boolean;
@@ -53,34 +53,35 @@ export function NewTaskModal({ isVisible, OnClose }: Props) {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: "rgba(0,0,0,0.3)",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: 'rgba(0,0,0,0.3)',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   container: {
-    width: "90%",
-    height: "30%",
-    backgroundColor: "white",
+    width: '90%',
+    height: '30%',
+    backgroundColor: 'white',
     borderRadius: 4,
-    shadowColor: "#000",
+    elevation: 0.5,
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 5 },
     shadowRadius: 10,
     shadowOpacity: 0.15,
   },
   header: {
-    width: "100%",
+    width: '100%',
     height: 50,
     backgroundColor: Theme.colors.primary,
     borderTopLeftRadius: 4,
     borderTopRightRadius: 4,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     paddingHorizontal: 20,
   },
   headerText: {
-    color: "white",
-    fontWeight: "bold",
+    color: 'white',
+    fontWeight: 'bold',
     fontSize: 18,
   },
   closeImage: {

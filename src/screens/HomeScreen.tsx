@@ -1,7 +1,13 @@
 import { useState } from 'react';
 import { Image, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { Theme } from '../themes';
-import { FabButton, NewTaskModal, NoTasksCard, Timer } from '../components';
+import {
+  FabButton,
+  NewTaskModal,
+  NoTasksCard,
+  TasksList,
+  Timer,
+} from '../components';
 
 const logo = require('../../assets/logo.png');
 
@@ -12,7 +18,14 @@ export function HomeScreen() {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <Image source={logo} style={styles.logo} resizeMode="contain" />
-        {false ? <NoTasksCard /> : <Timer />}
+        {false ? (
+          <NoTasksCard />
+        ) : (
+          <>
+            <Timer />
+            <TasksList />
+          </>
+        )}
         <FabButton onPress={() => setIsNewTaskModalVisible(true)} />
         <NewTaskModal
           isVisible={isNewTaskModalVisible}
