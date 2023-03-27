@@ -10,15 +10,24 @@ import {
 } from 'react-native';
 import { Theme } from '../../themes';
 import { Button } from '../Buttons';
+import { useState } from 'react';
 
 const closeImage = require('../../../assets/close.png');
 
 type Props = {
   isVisible: boolean;
   OnClose: VoidFunction;
+  onSubmit: (label: string) => void;
 };
 
-export function NewTaskModal({ isVisible, OnClose }: Props) {
+export function NewTaskModal({ isVisible, OnClose, onSubmit }: Props) {
+  const [text, setText] = useState('');
+
+  function handleSubmit() {
+    onSubmit(text);
+    setText('');
+  }
+
   return (
     <Modal animationType="slide" visible={isVisible} transparent>
       <SafeAreaView style={styles.safeArea}>
@@ -38,11 +47,12 @@ export function NewTaskModal({ isVisible, OnClose }: Props) {
           </View>
           <View style={styles.modalContext}>
             <TextInput
+              onChangeText={setText}
               style={styles.textInput}
               placeholder="Enter a task name here..."
               placeholderTextColor="rgba(0,0,0,0.5)"
             />
-            <Button label="CREATE" />
+            <Button onPress={handleSubmit} label="CREATE" />
           </View>
         </View>
       </SafeAreaView>

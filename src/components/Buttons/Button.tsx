@@ -7,9 +7,10 @@ type Props = {
   variant?: 'primary' | 'light';
   label?: string;
   icon?: any;
+  onPress?: VoidFunction;
 };
 
-export function Button({ variant = 'primary', label, icon }: Props) {
+export function Button({ variant = 'primary', label, icon, onPress }: Props) {
   let touchableOpacityStyle: any = { backgroundColor: Theme.colors.primary };
   let textStyle = { color: 'white' };
 
@@ -26,7 +27,10 @@ export function Button({ variant = 'primary', label, icon }: Props) {
   }
 
   return (
-    <TouchableOpacity style={[styles.button, touchableOpacityStyle]}>
+    <TouchableOpacity
+      onPress={onPress}
+      style={[styles.button, touchableOpacityStyle]}
+    >
       {!!label && <Text style={[styles.text, textStyle]}>{label}</Text>}
       {!!icon && <Image source={icon} />}
     </TouchableOpacity>

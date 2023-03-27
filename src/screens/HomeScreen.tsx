@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Image, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { useReducer } from 'react';
+import { Image, SafeAreaView, StyleSheet, View } from 'react-native';
 import { Theme } from '../themes';
 import {
   FabButton,
@@ -8,11 +8,19 @@ import {
   TasksList,
   Timer,
 } from '../components';
+import {
+  HomeScreeReducer,
+  HomeScreenAction,
+  homeScreenInitialState,
+} from '../reducers';
 
 const logoImage = require('../../assets/logo.png');
 
 export function HomeScreen() {
-  const [isNewTaskModalVisible, setIsNewTaskModalVisible] = useState(false);
+  const [state, dispatch] = useReducer(
+    HomeScreeReducer,
+    homeScreenInitialState
+  );
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -25,31 +33,30 @@ export function HomeScreen() {
             <View style={styles.timeContainer}>
               <Timer />
             </View>
-            <TasksList
-              data={[
-                {
-                  label: 'Create a frontend project',
-                  status: 'IN_PROGRESS',
-                  isSelected: true,
-                },
-                {
-                  label: 'Create a frontend project',
-                  status: 'READY',
-                  isSelected: false,
-                },
-                {
-                  label: 'Create a frontend project',
-                  status: 'READY',
-                  isSelected: false,
-                },
-              ]}
-            />
+            <TasksList data={state.tasks} />
           </>
         )}
-        <FabButton onPress={() => setIsNewTaskModalVisible(true)} />
+        <FabButton
+          onPress={() =>
+            dispatch(HomeScreenAction.toggleModal({ isModalVisible: true }))
+          }
+        />
         <NewTaskModal
-          isVisible={isNewTaskModalVisible}
-          OnClose={() => setIsNewTaskModalVisible(false)}
+          isVisible={state.isModalVisible}
+          OnClose={() =>
+            dispatch(HomeScreenAction.toggleModal({ isModalVisible: false }))
+          }
+          onSubmit={(label: string) =>
+            dispatch(
+              HomeScreenAction.createTask({
+                task: {
+                  label,
+                  isSelected: false,
+                  status: 'READY',
+                },
+              })
+            )
+          }
         />
       </View>
     </SafeAreaView>
