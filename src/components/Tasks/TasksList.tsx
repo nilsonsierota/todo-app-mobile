@@ -1,9 +1,22 @@
-import { TaskItem } from './TaskItem';
+import { FlatList, StyleSheet } from 'react-native';
+import { TaskItem, Props as TaksItemProps } from './TaskItem';
 
-export function TasksList() {
+type Props = {
+  data: TaksItemProps[];
+};
+
+export function TasksList({ data }: Props) {
   return (
-    <>
-      <TaskItem label="Create a frontend project" />
-    </>
+    <FlatList
+      data={data}
+      contentContainerStyle={styles.container}
+      renderItem={({ item }) => <TaskItem {...item} />}
+    />
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 20,
+  },
+});

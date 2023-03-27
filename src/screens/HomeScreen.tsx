@@ -9,7 +9,7 @@ import {
   Timer,
 } from '../components';
 
-const logo = require('../../assets/logo.png');
+const logoImage = require('../../assets/logo.png');
 
 export function HomeScreen() {
   const [isNewTaskModalVisible, setIsNewTaskModalVisible] = useState(false);
@@ -17,13 +17,33 @@ export function HomeScreen() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        <Image source={logo} style={styles.logo} resizeMode="contain" />
+        <Image source={logoImage} style={styles.logo} resizeMode="contain" />
         {false ? (
           <NoTasksCard />
         ) : (
           <>
-            <Timer />
-            <TasksList />
+            <View style={styles.timeContainer}>
+              <Timer />
+            </View>
+            <TasksList
+              data={[
+                {
+                  label: 'Create a frontend project',
+                  status: 'IN_PROGRESS',
+                  isSelected: true,
+                },
+                {
+                  label: 'Create a frontend project',
+                  status: 'READY',
+                  isSelected: false,
+                },
+                {
+                  label: 'Create a frontend project',
+                  status: 'READY',
+                  isSelected: false,
+                },
+              ]}
+            />
           </>
         )}
         <FabButton onPress={() => setIsNewTaskModalVisible(true)} />
@@ -43,13 +63,14 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    paddingVertical: 40,
+  },
+  timeContainer: {
     paddingHorizontal: 20,
   },
   logo: {
     width: 227,
     height: 46,
     alignSelf: 'center',
-    marginVertical: 20,
+    marginVertical: 30,
   },
 });
