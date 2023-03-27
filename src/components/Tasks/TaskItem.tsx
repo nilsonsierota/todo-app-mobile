@@ -1,6 +1,6 @@
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
 
-type Props = {
+export type Props = {
   label: string;
   status?: 'READY' | 'IN_PROGRESS' | 'DONE';
   isSelected?: boolean;
@@ -14,11 +14,14 @@ export function TaskItem({
   status = 'READY',
 }: Props) {
   return (
-    <View style={[styles.container, isSelected && styles.containerSelected]}>
+    <TouchableOpacity
+      style={[styles.container, isSelected && styles.containerSelected]}
+      onPress={() => {}}
+    >
       <Text style={styles.label}>{label}</Text>
       {status === 'IN_PROGRESS' && <Text style={styles.text}>In progress</Text>}
       {status === 'DONE' && <Image source={tinyCheckImage} />}
-    </View>
+    </TouchableOpacity>
   );
 }
 
