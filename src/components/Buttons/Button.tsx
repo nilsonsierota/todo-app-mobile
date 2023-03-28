@@ -7,10 +7,17 @@ type Props = {
   variant?: 'primary' | 'light';
   label?: string;
   icon?: any;
+  disabled?: boolean;
   onPress?: VoidFunction;
 };
 
-export function Button({ variant = 'primary', label, icon, onPress }: Props) {
+export function Button({
+  variant = 'primary',
+  label,
+  icon,
+  disabled,
+  onPress,
+}: Props) {
   let touchableOpacityStyle: any = { backgroundColor: Theme.colors.primary };
   let textStyle = { color: 'white' };
 
@@ -26,8 +33,14 @@ export function Button({ variant = 'primary', label, icon, onPress }: Props) {
     textStyle = { color: Theme.colors.primary };
   }
 
+  if (disabled) {
+    touchableOpacityStyle = { backgroundColor: '#ccc' };
+    textStyle = { color: 'white' };
+  }
+
   return (
     <TouchableOpacity
+      disabled={disabled}
       onPress={onPress}
       style={[styles.button, touchableOpacityStyle]}
     >

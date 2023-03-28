@@ -52,7 +52,11 @@ export function NewTaskModal({ isVisible, OnClose, onSubmit }: Props) {
               placeholder="Enter a task name here..."
               placeholderTextColor="rgba(0,0,0,0.5)"
             />
-            <Button onPress={handleSubmit} label="CREATE" />
+            <Button
+              onPress={handleSubmit}
+              label="CREATE"
+              disabled={!text || text?.length === 0}
+            />
           </View>
         </View>
       </SafeAreaView>
@@ -69,7 +73,7 @@ const styles = StyleSheet.create({
   },
   container: {
     width: '90%',
-    height: '30%',
+    height: 300,
     backgroundColor: 'white',
     borderRadius: 4,
     elevation: 0.5,

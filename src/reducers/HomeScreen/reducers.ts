@@ -13,7 +13,25 @@ export function HomeScreeReducer(
       return { ...state, isModalVisible: action.payload.isModalVisible };
 
     case HomeScreenActionsEnum.CreateTask:
-      return { ...state, tasks: [...state.tasks, action.payload.task] };
+      return {
+        ...state,
+        isModalVisible: false,
+        tasks: [...state.tasks, action.payload.task],
+      };
+
+    case HomeScreenActionsEnum.SelectTaskIndex:
+      return {
+        ...state,
+        selectedTaskIndex: action.payload.selectedTaskIndex,
+      };
+
+    case HomeScreenActionsEnum.SetTaskStatus:
+      const tasks = [...state.tasks];
+      tasks[state.selectedTaskIndex].status = action.payload.taskStatus;
+      return {
+        ...state,
+        tasks,
+      };
 
     default:
       return { ...state };
@@ -23,4 +41,5 @@ export function HomeScreeReducer(
 export const homeScreenInitialState = {
   tasks: [],
   isModalVisible: false,
+  selectedTaskIndex: undefined,
 };
